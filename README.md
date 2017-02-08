@@ -16,7 +16,8 @@ mkdir -p /www/mantisbt/plugins
 ```
 
 Copy "config_inc.php" to "/www/mantisbt/config/" and make changes
-Copy all plugins to "/www/mantisbt/plugins"
+
+Copy all plugins from the source to "/www/mantisbt/plugins"
 
 ### SELinux
 
@@ -84,4 +85,12 @@ server {
         }
 }
 
+```
+
+### Cronjob
+
+Running cronjob in conatiner. This will run the command inside the running container.
+
+```
+docker exec -i mantisbt /bin/bash -c "/usr/bin/php /var/www/html/scripts/send_emails.php"
 ```
