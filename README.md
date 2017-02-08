@@ -94,3 +94,4 @@ Running cronjob in conatiner. This will run the command inside the running conta
 ```
 docker exec -i mantisbt /bin/bash -c "/usr/bin/php /var/www/html/scripts/send_emails.php"
 ```
+(Use '-it' when running manually from bash)
