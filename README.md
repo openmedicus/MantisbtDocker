@@ -1,6 +1,6 @@
-# PHPListDocker
+# MantisbtDocker
 
-The PHPList installed on CentOS 7.
+The Mantis BugTracker installed on CentOS 7.
 
 ### Pull image
 
