@@ -42,7 +42,7 @@ docker run --name=mantisbt -p 8080:80 -v /www/mantisbt/config:/var/www/html/conf
 
 ```
 [Unit]
-Description=PHPList container
+Description=Mantis BugTracker Container
 Requires=docker.service
 After=docker.service
 
