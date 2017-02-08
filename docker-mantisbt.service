@@ -1,0 +1,14 @@
+[Unit]
+Description=Mantis BugTracker Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run --name=mantisbt -p 8080:80 -v /www/mantisbt/config:/var/www/html/config:rw openmedicus/mantisbt
+ExecStop=/usr/bin/docker stop -t 2 mantisbt
+ExecStopPost=/usr/bin/docker rm -f mantisbt
+
+[Install]
+WantedBy=default.target
+
