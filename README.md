@@ -18,19 +18,22 @@ mkdir -p /www/mantisbt/plugins
 Copy "config_inc.php" to "/www/mantisbt/config/" and make changes
 Copy all plugins to "/www/mantisbt/plugins"
 
-SELinux:
+### SELinux
 
 ```
 chcon -Rt svirt_sandbox_file_t /www/
 ```
 
 ```
-docker run --name=mantisbt -p 8080:80 -v /www/mantisbt/config:/var/www/html/config:rw -v /www/mantisbt/plugins:/var/www/html/plugins:rw -d openmedicus/mantisbt
+semanage port -m -t http_port_t -p tcp 8080
 ```
 
-### SELinux
 
-# semanage port -m -t http_port_t -p tcp 8080
+### Run
+
+```
+docker run --name=mantisbt -p 8080:80 -v /www/mantisbt/config:/var/www/html/config:rw -v /www/mantisbt/plugins:/var/www/html/plugins:rw -d openmedicus/mantisbt
+```
 
 ### Systemd
 
