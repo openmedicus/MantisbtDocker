@@ -5,7 +5,7 @@ RUN echo 'date.timezone = "Europe/Copenhagen"' >> /etc/php.ini
 
 #RUN sed -i -e "s/DirectoryIndex index\.html/DirectoryIndex index\.php index\.html/g" /etc/httpd/conf/httpd.conf
 
-ADD mantisbt-2.2.0.tar.gz /
-RUN mv mantisbt-2.2.0/* /var/www/html/ ; \
+ADD mantisbt-2.3.1.tar.gz /
+RUN mv mantisbt-2.3.1/* /var/www/html/ ; \
 	chown -R apache:apache /var/www/html
 
