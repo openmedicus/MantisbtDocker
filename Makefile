@@ -1,4 +1,4 @@
-VERSION = 2.3.1
+VERSION = 2.6.0
 
 all: pull build push
 
@@ -6,7 +6,7 @@ pull:
 	sudo docker pull openmedicus/centos-lamp:latest
 
 build:
-	sudo docker build -t mantisbt .
+	sudo docker build --no-cache -t mantisbt .
 
 push:
 	sudo docker tag mantisbt openmedicus/mantisbt:$(VERSION)
