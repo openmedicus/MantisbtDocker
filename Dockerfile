@@ -5,8 +5,8 @@ RUN echo $'\n\ndate.timezone = "Europe/Copenhagen"' >> /etc/php.ini
 
 #RUN sed -i -e "s/DirectoryIndex index\.html/DirectoryIndex index\.php index\.html/g" /etc/httpd/conf/httpd.conf
 
-ADD mantisbt-2.12.0.tar.gz /
-RUN mv mantisbt-2.12.0/* /var/www/html/
+ADD mantisbt-2.13.1.tar.gz /
+RUN mv mantisbt-2.13.1/* /var/www/html/
 
 ADD parsedown-master.zip /
 RUN unzip parsedown-master.zip
