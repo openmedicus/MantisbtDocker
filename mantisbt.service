@@ -1,0 +1,13 @@
+[Unit]
+Description=Mantis BugTracker Container
+
+[Service]
+Restart=always
+EnvironmentFile=/etc/sysconfig/mantisbt
+ExecStart=/usr/bin/podman run --name=mantisbt -e TZ=${TZ} -e LC_ALL=${LOCALE} -e LANG=${LOCALE} -p ${PORT}:80 -v /var/xcare/webbug.xmedicus.com/httpd-extra.conf:/etc/httpd/conf.d/httpd-extra.conf -v /var/xcare/webbug.xmedicus.com/htaccess:/var/www/html/.htaccess -v /var/xcare/webbug.xmedicus.com/user.ini:/var/www/html/.user.ini -v /var/xcare/webbug.xmedicus.com/config:/var/www/html/config:rw -v /var/xcare/webbug.xmedicus.com/plugins:/var/www/html/plugins:rw -v /var/xcare/webbug.xmedicus.com/files:/files:rw openmedicus/mantisbt:${TAG}
+ExecStop=/usr/bin/podman stop -t 2 mantisbt
+ExecStopPost=/usr/bin/podman rm -f mantisbt
+
+[Install]
+WantedBy=default.target
+

@@ -1,14 +1,38 @@
-FROM openmedicus/centos-lamp:7.1
+FROM ubi9/php-81
 MAINTAINER Mikkel Kruse Johnsen <mikkel@xmedicus.com>
+
+USER root
 
 RUN echo $'\n\ndate.timezone = "Europe/Copenhagen"' >> /etc/php.ini
 
-ADD mantisbt-@VERSION@.tar.gz /
-RUN mv mantisbt-@VERSION@/* /var/www/html/
+COPY mantisbt-@VERSION@.tar.gz /tmp/
+RUN tar xfz /tmp/mantisbt-2.27.0.tar.gz -C /var/www/html/ --strip-components=1
+RUN rm -f /tmp/mantisbt-@VERSION@.tar.gz
 
-ADD parsedown-master.zip /
-RUN unzip parsedown-master.zip
-RUN mv parsedown-master /var/www/html/library/parsedown
+COPY parsedown-master.zip /tmp/
+RUN mkdir -p /var/www/html/library/parsedown && unzip -j /tmp/parsedown-master.zip -d /var/www/html/library/parsedown/
+RUN rm -f /tmp/parsedown-master.zip
+
+
+# Addiational
+#RUN dnf install -y ImageMagick
+
+# Clean yum
+#RUN dnf clean all
+
+# PHP Info
+ADD phpinfo.php /var/www/html/
 
 RUN chown -R apache:apache /var/www/html
+
+# AllowOverride
+RUN sed -i -e 's!AllowOverride none!AllowOverride all!g' /etc/httpd/conf/httpd.conf
+RUN sed -i -e 's!AllowOverride None!AllowOverride All!g' /etc/httpd/conf/httpd.conf
+RUN sed -i -e 's!#DocumentRoot "/opt/app-root/src"!DocumentRoot "/var/www/html"!g' /etc/httpd/conf/httpd.conf
+RUN sed -i -e 's!Listen 0.0.0.0:8080!Listen 0.0.0.0:80!g' /etc/httpd/conf/httpd.conf
+
+EXPOSE 80
+
+# By default, simply start apache.
+CMD php-fpm && /usr/sbin/httpd -D FOREGROUND
 

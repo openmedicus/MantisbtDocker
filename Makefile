@@ -1,20 +1,21 @@
-VERSION = 2.25.7
+VERSION = 2.27.0
 
 all: pull build tag push
 
 pull:
-	sudo docker pull openmedicus/centos-lamp:7.1
+	podman pull ubi9/php-81
+	#podman pull openmedicus/centos-lamp:7.1
 
 build:
 	cp -f Dockerfile.in Dockerfile
 	sed -i -e 's!@VERSION@!$(VERSION)!g' Dockerfile
-	sudo docker build --no-cache -t mantisbt .
+	podman build --no-cache --format=docker -t mantisbt .
 
 tag:
-	sudo docker tag mantisbt openmedicus/mantisbt:$(VERSION)
+	podman tag mantisbt openmedicus/mantisbt:$(VERSION)
 
 push:
-	sudo docker push openmedicus/mantisbt:$(VERSION)
+	podman push openmedicus/mantisbt:$(VERSION)
 
 run:
-	sudo docker run -i -t mantisbt /bin/bash
+	podman run -i -t mantisbt /bin/bash
