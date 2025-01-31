@@ -3,6 +3,10 @@ MAINTAINER Mikkel Kruse Johnsen <mikkel@xmedicus.com>
 
 USER root
 
+ENV LANG='da_DK.UTF-8' LANGUAGE='da_DK:da' LC_ALL='da_DK.UTF-8'
+
+RUN dnf install -y glibc-all-langpacks && dnf update; dnf clean all
+
 RUN echo $'\n\ndate.timezone = "Europe/Copenhagen"' >> /etc/php.ini
 
 COPY mantisbt-@VERSION@.tar.gz /tmp/
@@ -12,13 +16,6 @@ RUN rm -f /tmp/mantisbt-@VERSION@.tar.gz
 COPY parsedown-master.zip /tmp/
 RUN mkdir -p /var/www/html/library/parsedown && unzip -j /tmp/parsedown-master.zip -d /var/www/html/library/parsedown/
 RUN rm -f /tmp/parsedown-master.zip
-
-
-# Addiational
-#RUN dnf install -y ImageMagick
-
-# Clean yum
-#RUN dnf clean all
 
 # PHP Info
 ADD phpinfo.php /var/www/html/

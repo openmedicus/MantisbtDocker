@@ -4,7 +4,6 @@ all: pull build tag push
 
 pull:
 	podman pull ubi9/php-81
-	#podman pull openmedicus/centos-lamp:7.1
 
 build:
 	cp -f Dockerfile.in Dockerfile
