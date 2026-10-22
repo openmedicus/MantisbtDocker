@@ -1,4 +1,4 @@
-FROM ubi9/php-81
+FROM ubi9/php-83
 MAINTAINER Mikkel Kruse Johnsen <mikkel@xmedicus.com>
 
 USER root
@@ -10,7 +10,7 @@ RUN dnf install -y glibc-all-langpacks && dnf update; dnf clean all
 RUN echo $'\n\ndate.timezone = "Europe/Copenhagen"' >> /etc/php.ini
 
 COPY mantisbt-@VERSION@.tar.gz /tmp/
-RUN tar xfz /tmp/mantisbt-2.27.0.tar.gz -C /var/www/html/ --strip-components=1
+RUN tar xfz /tmp/mantisbt-@VERSION@.tar.gz -C /var/www/html/ --strip-components=1
 RUN rm -f /tmp/mantisbt-@VERSION@.tar.gz
 
 COPY parsedown-master.zip /tmp/

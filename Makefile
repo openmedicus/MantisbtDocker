@@ -1,9 +1,9 @@
-VERSION = 2.27.0
+VERSION = 2.28.3
 
 all: pull build tag push
 
 pull:
-	podman pull ubi9/php-81
+	podman pull ubi9/php-83
 
 build:
 	cp -f Dockerfile.in Dockerfile
